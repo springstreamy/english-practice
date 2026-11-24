@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>מחברת הכתבה – Band I</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script>new MutationObserver(()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}}).observe(document,{childList:true,subtree:true})</script>
+</head>
+<body>
+<header>
+ <div class="wrap">
+  <div class="hrow">
+   <h1>מחברת הכתבה באנגלית<small>Lexical Pre-Band I & Band I · משרד החינוך · 1,349 מילים וביטויים</small></h1>
+   <div class="meter" aria-label="התקדמות כללית">
+    <div class="bar" id="gbar"></div>
+    <div class="legend" id="glegend"></div>
+   </div>
+  </div>
+  <nav class="tabs" aria-label="מסכים">
+   <button data-view="home" aria-pressed="true">אימון</button>
+   <button data-view="words" aria-pressed="false">המילים וההתקדמות</button>
+   <button data-view="settings" aria-pressed="false">הגדרות וגיבוי</button>
+  </nav>
+ </div>
+</header>
+
+<main class="wrap">
+ <!-- HOME -->
+ <section id="v-home">
+  <div class="panel">
+   <h2>על מה מתאמנים הפעם?</h2>
+   <div class="chips" id="bands"></div>
+   <div class="toolbar">
+    <div class="seg" role="group" aria-label="בחירה לפי">
+     <button id="byL" aria-pressed="true">לפי אות</button>
+     <button id="byP" aria-pressed="false">לפי עמוד</button>
+    </div>
+    <span class="muted" id="pickhint">אפשר לבחור כמה אותיות יחד</span>
+   </div>
+   <div id="picker"></div>
+   <div class="selinfo">
+    <strong id="selcount"></strong>
+    <span class="muted" id="selbreak"></span>
+    <button class="link" id="clearsel">ניקוי הבחירה</button>
+   </div>
+  </div>
+
+  <div class="panel">
+   <div class="toolbar" style="margin-top:0">
+    <label>אורך אימון: <select id="len"><option value="10">10 שאלות</option><option value="20">20 שאלות</option><option value="30">30 שאלות</option><option value="999">כל המילים שנבחרו</option></select></label>
+    <label class="ck"><input type="checkbox" id="incRec" checked> לכלול בהכתבה מילים להבנה בלבד (Rec)</label>
+   </div>
+   <div class="modes" id="modes"></div>
+  </div>
+ </section>
+
+ <!-- PRACTICE -->
+ <section id="v-play" class="hidden">
+  <div class="page" id="page"></div>
+ </section>
+
+ <!-- WORDS -->
+ <section id="v-words" class="hidden">
+  <div class="panel">
+   <h2>המילים שבחרת</h2>
+   <p class="muted" style="margin-top:0">הרשימה מציגה את הבחירה הנוכחית (רצועה + אות/עמוד). "שולטת" = עברה את המילה כמה פעמים ברצף ובימים שונים, ולכן היא תחזור רק לעיתים רחוקות.</p>
+   <div class="toolbar">
+    <div class="seg" role="group" aria-label="סינון" id="wfilter">
+     <button data-f="all" aria-pressed="true">הכול</button>
+     <button data-f="n" aria-pressed="false">חדשות</button>
+     <button data-f="l" aria-pressed="false">בלמידה</button>
+     <button data-f="weak" aria-pressed="false">טעויות</button>
+     <button data-f="m" aria-pressed="false">שולטת</button>
+    </div>
+    <input id="wsearch" placeholder="חיפוש מילה…" style="border:1.5px solid var(--line);border-radius:10px;padding:8px 12px;min-height:42px;background:var(--paper);font-size:16px">
+   </div>
+   <div class="scroll"><table class="stack" id="wtable"><thead><tr><th>מילה</th><th>תרגום</th><th>רצועה</th><th>איות</th><th>משמעות</th><th>מצב</th><th></th></tr></thead><tbody></tbody></table></div>
+   <p class="muted" id="wmore"></p>
+  </div>
+ </section>
+
+ <!-- SETTINGS -->
+ <section id="v-settings" class="hidden">
+  <div class="panel">
+   <h2>קול ההקראה</h2>
+   <div class="toolbar" style="margin-top:0">
+    <label>קול: <select id="voice"></select></label>
+    <label>מהירות: <select id="rate"><option value="0.7">איטית</option><option value="0.85" selected>רגילה-איטית</option><option value="1">רגילה</option></select></label>
+    <button class="speak sm" id="testv"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 8.5a5 5 0 0 1 0 7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>בדיקה</button>
+   </div>
+   <p class="muted" id="voicenote"></p>
+  </div>
+  <div class="panel">
+   <h2>איפה נשמרת ההתקדמות</h2>
+   <p id="savenote" class="muted" style="margin-top:0"></p>
+   <h2 style="margin-top:18px">גיבוי והעברה</h2>
+   <p class="muted" style="margin-top:0">העתיקי את הקוד כדי לשמור גיבוי או להעביר את ההתקדמות למכשיר אחר, והדביקי אותו כאן כדי לשחזר.</p>
+   <textarea id="bk" spellcheck="false" aria-label="קוד גיבוי"></textarea>
+   <div class="actions" style="justify-content:flex-start">
+    <button class="btn small" id="bkcopy">העתקת הגיבוי</button>
+    <button class="btn ghost small" id="bkload">שחזור מהקוד שהודבק</button>
+    <button class="btn ghost small" id="reset" style="color:var(--red)">איפוס כל ההתקדמות</button>
+   </div>
+   <p id="resetconfirm" class="hidden">בטוחה? כל נתוני ההתקדמות יימחקו. <button class="btn small" id="resetyes" style="background:var(--red)">כן, לאפס</button> <button class="link" id="resetno">ביטול</button></p>
+  </div>
+ </section>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="words.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
